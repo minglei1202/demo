@@ -12,7 +12,11 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+$api = app('Dingo\Api\Routing\Router');
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+$api->version('v1', [
+    'namespace' => 'App\Http\Controllers',
+    'middleware' => ['bindings']
+], function ($api) {
+    $api->get('region', 'RegionController@index')->name('region');
 });
